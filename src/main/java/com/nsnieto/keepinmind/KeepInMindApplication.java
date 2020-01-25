@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KeepinmindApplication {
+public class KeepInMindApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KeepinmindApplication.class, args);
+		SpringApplication.run(KeepInMindApplication.class, args);
 	}
 
 }
