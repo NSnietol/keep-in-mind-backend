@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,11 +19,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "markedWord")
+@Builder
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode
-@Builder
 public class LinkedWord {
+
+    public LinkedWord() {
+    }
 
     @Id
     @Column(name = "id")
@@ -34,7 +38,5 @@ public class LinkedWord {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Word word;
-
-    public LinkedWord() { }
 
 }

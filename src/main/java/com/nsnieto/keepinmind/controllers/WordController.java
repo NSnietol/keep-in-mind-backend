@@ -3,7 +3,6 @@ package com.nsnieto.keepinmind.controllers;
 import com.nsnieto.keepinmind.entities.Word;
 import com.nsnieto.keepinmind.repositories.WordRepository;
 import com.nsnieto.keepinmind.services.WordService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-
-@RequestMapping("/word")
 @RestController
+@RequestMapping("/word")
 public class WordController {
 
-    @Autowired
-    private WordRepository wordController;
+    private final WordRepository wordController;
 
-    @Autowired
-    private WordService wordService;
+    private final WordService wordService;
 
+    public WordController(WordRepository wordController, WordService wordService) {
+        this.wordController = wordController;
+        this.wordService = wordService;
+    }
 
     @GetMapping(value = "/list/random", produces = {"application/json"})
     public ResponseEntity<Object> getWordsRandom(@RequestParam(name = "size", defaultValue = "3") int size) {

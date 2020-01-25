@@ -6,7 +6,6 @@ import com.nsnieto.keepinmind.entities.User;
 import com.nsnieto.keepinmind.entities.Word;
 import com.nsnieto.keepinmind.exception.ValueNotFound;
 import com.nsnieto.keepinmind.repositories.LinkedWordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +15,15 @@ import java.util.Optional;
 @Component
 public class LinkedWordService {
 
-    @Autowired
-    private LinkedWordRepository linkedWordRepository;
+    private final LinkedWordRepository linkedWordRepository;
+    private final WordService wordService;
+    private final UserService userService;
 
-    @Autowired
-    private WordService wordService;
-    @Autowired
-    private UserService userService;
+    public LinkedWordService(LinkedWordRepository linkedWordRepository, WordService wordService, UserService userService) {
+        this.linkedWordRepository = linkedWordRepository;
+        this.wordService = wordService;
+        this.userService = userService;
+    }
 
     // MarkedWord
     public LinkedWord addWordToUser(WordDto dto) throws Exception {

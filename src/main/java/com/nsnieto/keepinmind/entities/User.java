@@ -3,6 +3,7 @@ package com.nsnieto.keepinmind.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "userKeep")
 @Data
-@AllArgsConstructor
 public class User {
+
+    public User() {
+    }
 
     @Id
     @Column(name = "id")
@@ -23,14 +26,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public User() { }
-
     @Column(name = "nickname", unique = true)
     private String nickName;
 
     @Column(name = "password")
     @JsonIgnore
-
     private String password;
 
 }

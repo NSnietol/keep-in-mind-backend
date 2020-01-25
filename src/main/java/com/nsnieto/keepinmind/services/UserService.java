@@ -12,8 +12,11 @@ import java.util.List;
 @Component
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User create(User user) throws RuntimeException {
 

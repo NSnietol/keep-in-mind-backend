@@ -3,11 +3,9 @@ package com.nsnieto.keepinmind.controllers;
 
 import com.nsnieto.keepinmind.dto.WordDto;
 import com.nsnieto.keepinmind.services.LinkedWordService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @RequestMapping("/words")
-@Controller
 public class LinkedWordController {
 
-    @Autowired
-    private LinkedWordService linkedWordService;
+    private final LinkedWordService linkedWordService;
 
+    public LinkedWordController(LinkedWordService linkedWordService) {
+        this.linkedWordService = linkedWordService;
+    }
 
     @GetMapping("/list/{nickName}")
     public ResponseEntity<Object> listAll(
@@ -35,16 +36,11 @@ public class LinkedWordController {
         try {
             if (sort.equals("id")) {
                 return ResponseEntity.ok(linkedWordService.findAllWordsByNickName(nickName, PageRequest.of(page, size, Sort.by(sort.toLowerCase()))));
-
             }
-            {
-                return ResponseEntity.ok(linkedWordService.findAllWordsByNickName(nickName));
-
-            }
+            return ResponseEntity.ok(linkedWordService.findAllWordsByNickName(nickName));
 
         } catch (Exception e) {
             e.printStackTrace();
-
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 

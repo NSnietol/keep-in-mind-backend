@@ -13,11 +13,14 @@ import java.util.Optional;
 @Component
 public class WordService {
 
-    @Autowired
-    private WordRepository wordController;
+    private final WordRepository wordController;
 
-    @Autowired
-    private WordRepository wordRepository;
+    private final WordRepository wordRepository;
+
+    public WordService(WordRepository wordController, WordRepository wordRepository) {
+        this.wordController = wordController;
+        this.wordRepository = wordRepository;
+    }
 
     public Word saveNewWord(Word newWord) throws Exception {
 
@@ -26,7 +29,7 @@ public class WordService {
 
         Optional<Word> optionalWord = wordRepository.findByNameAndMean(newWord.getName(), newWord.getMean());
 
-        return optionalWord.isPresent() ? optionalWord.get() : wordRepository.save(newWord);
+        return optionalWord.orElseGet(() -> wordRepository.save(newWord));
 
     }
 
