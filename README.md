@@ -1,5 +1,7 @@
 # Keep in mind
 
+[![Build Status](https://travis-ci.com/JoshuaPuello/keep-in-mind-backend.svg)](https://travis-ci.com/JoshuaPuello/keep-in-mind-backend)
+
 ## Steps to execute
 
 1. Using the terminal go to the project directory, execute the following commands:
